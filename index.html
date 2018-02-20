@@ -1,0 +1,169 @@
+
+    <head>
+    <title> IT202 LiveWeather </title>
+    <style>
+    
+    @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.w-page {
+  width: 900px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: -100 auto ;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.container:before, .container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+
+
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #EF3B3A;
+}
+body {
+  background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+  background: -moz-linear-gradient(right, #76b852, #8DC26F);
+  background: -o-linear-gradient(right, #76b852, #8DC26F);
+  background: linear-gradient(to left, #76b852, #8DC26F);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;  
+  }  
+
+input:hover {
+    background-color: yellow;
+}
+ 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+
+      <link rel="stylesheet" href="css/style.css">
+    
+    
+    #down
+        {
+            padding-top: 10;
+        }
+        </style>
+    </head>
+    <body>
+    
+    <div class="w-page">
+  <div class="form">
+    
+    
+    
+        <form id="myForm" class="register-form">
+       <center> <h1> IT202 - 001/LiveWeather Web app </h1>
+        <br>
+        <br>
+        Enter ZIP code : 
+        <input type="text" id="zip" placeholder ="Enter ZipCode here ...." alt="zip"/>
+        <br>
+        <br>
+        <input type="button" id="getweather" alt="Get Weather" onclick="getinfo()"  value="Weather Button"/>
+         <br>
+        <br>
+        <input type="button" onclick="myFunction()" alt="Clear" value="Reset form"/>
+        <br>
+        <br>
+        
+        <div  id="down" ><textarea id="output" cols="30" rows="14"> The Current Weather for: 
+        </textarea>
+        </div>
+</center>
+        </form>
+        <script type="text/javascript">
+            function getinfo()
+            {   
+                var outzip = document.getElementById("zip").value;
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() 
+            {
+                if (xhttp.readyState == 4 && xhttp.status == 200) 
+            {
+                var result = JSON.parse(xhttp.responseText);
+                console.log(result);
+                
+                var country = result.sys.country;
+                var city = result.name;
+                var sunrise = result.sys.sunrise;
+                var sunset = result.sys.sunset;
+               
+                var sky = result.weather["0"].description;
+                var humidity = result.main.humidity;
+                
+                var temp = result.main.temp;
+              
+               
+                var speed = result.wind.speed;
+                
+                
+                
+                
+                
+                document.getElementById("output").value="Country : "+country+
+                    "\nCity : "+city+
+                    "\nSunrise : "+sunrise+
+                    "\nSunset : "+sunset+
+                    
+                    "\nDescription : "+sky+
+                    "\nHumidity : "+humidity+
+                    
+                    
+                    "\nWind speed : "+speed+
+                    "\nCurrent Temperature : "+temp;
+                
+              
+            }
+            };
+                xhttp.open("GET", "INSERT API HERE :)", true);
+                xhttp.send();    
+            }
+            function myFunction() {
+    document.getElementById("myForm").reset();
+}
+        
+        </script>
+    </body>
+</html>
